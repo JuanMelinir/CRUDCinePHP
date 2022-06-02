@@ -10,9 +10,10 @@
     <li class="nav-item">
       <a class="nav-link form-label <?php echo (isset($_GET["ruta"]) && $_GET["ruta"] == 'mostrarSalas') ? 'active' : '' ?>" href="index.php?ruta=mostrarSalas">Salas</a>
     </li>
+    <!--  
     <li class="nav-item">
       <a class="nav-link form-label <?php echo (isset($_GET["ruta"]) && $_GET["ruta"] == 'mostrarFunciones') ? 'active' : '' ?>" href="index.php?ruta=mostrarFunciones">Funciones</a>
-    </li>
+    </li>-->
   </ul>
 
   <?php
@@ -25,8 +26,6 @@ if (isset($_GET["ruta"])) {
     require("mostrarPeliculas.php");
   }else if($ruta=="mostrarSalas"){
     require("mostrarSalas.php");
-  }else if($ruta=="mostrarFunciones"){
-    require("mostrarFunciones.php");
   }
 }else{
   require "mostrarPeliculas.php";

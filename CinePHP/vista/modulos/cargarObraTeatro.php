@@ -2,7 +2,7 @@
 
 
 <div class="row g-6">
-<form >
+<form method='POST' >
 <div class="row g-6">
   <div class="col-6">
   <label class="form-label">Nombre</label>
@@ -60,22 +60,27 @@
 </div>
 </form>
 <?php
+//conecto a la base de datos db_cine
 include_once 'includes/conexion1.php';
-
+//si hay un post ejecuto el siguiente código.
   if($_SERVER['REQUEST_METHOD']=='POST'){
-
+//obtengo los datos de evento del formulario
     $nombre=trim($_POST['nombre']);
     $año=trim($_POST['anio']);
     $estrellas=trim($_POST['estrellas']);
     $duracion=trim($_POST['duracion']);
+    //creo una consulta
     $eventos="INSERT INTO evento(nombre,anio,estrellas,duracion) VALUES ('$nombre','$año','$estrellas','$duracion')";
+    //la envio a la base de datos
     $resultado=mysqli_query($conexion,$eventos);
+    //controlo mediante $resultado si hubo algún error.
     if($resultado){
-    /*echo "se cargo correctamente";
-    echo $last_id=mysqli_insert_id($conexion);*/
+    echo "se cargo correctamente";
+    echo $last_id=mysqli_insert_id($conexion);
     }else{
       echo $eventos;
     }
+    //obtengo los datos de obra de teatro del formulario
     $compania=trim($_POST['compania']);
     $reparto=trim($_POST['reparto']);
     $escenografia=trim($_POST['escenografia']);
@@ -84,25 +89,19 @@ include_once 'includes/conexion1.php';
     }else{
     $valor=false;  
     }
+    //Obtengo el id de la consulta reciente es decir del evento que recien guarde en la base de datos
     $last_id=mysqli_insert_id($conexion);
+    //envio a la base de datos una obra de teatro asociandola al id evento recien guardado
     $obras="INSERT INTO obra_teatro(id_evento, actores, compania, escenografia) VALUES ('$last_id','$reparto','$compania','$valor')";
     $resultado=mysqli_query($conexion,$obras); 
+    //controlo mediante $resultado si hubo algún error.
     if($resultado){
       echo "se cargo correctamente";
       }else{
         echo $obras;
       }
   }
-  print_r($_SESSION['cronogramas']);
   ?>
    
 </div>
-
-
-
-
-
-
-
-
 

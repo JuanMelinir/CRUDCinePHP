@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2022 a las 22:41:15
+-- Tiempo de generación: 30-05-2022 a las 17:54:47
 -- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Versión de PHP: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,9 +40,9 @@ CREATE TABLE `cronograma` (
 --
 
 CREATE TABLE `evento` (
-  `id_evento` int(10) NOT NULL,
+  `id` int(10) NOT NULL,
   `nombre` varchar(11) NOT NULL,
-  `anio` int(11) NOT NULL,
+  `año` int(11) NOT NULL,
   `estrellas` tinyint(1) NOT NULL,
   `duracion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -51,7 +51,7 @@ CREATE TABLE `evento` (
 -- Volcado de datos para la tabla `evento`
 --
 
-INSERT INTO `evento` (`id_evento`, `nombre`, `anio`, `estrellas`, `duracion`) VALUES
+INSERT INTO `evento` (`id`, `nombre`, `año`, `estrellas`, `duracion`) VALUES
 (1, '0', 2022, 4, 45),
 (2, 'Era del hie', 2022, 4, 45),
 (3, 'Era del hie', 2022, 4, 45),
@@ -123,7 +123,7 @@ ALTER TABLE `cronograma`
 -- Indices de la tabla `evento`
 --
 ALTER TABLE `evento`
-  ADD PRIMARY KEY (`id_evento`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `obra_teatro`
@@ -144,8 +144,7 @@ ALTER TABLE `pelicula`
 -- Indices de la tabla `sala`
 --
 ALTER TABLE `sala`
-  ADD PRIMARY KEY (`id_sala`),
-  ADD KEY `id_cronograma` (`id_cronograma`);
+  ADD PRIMARY KEY (`id_sala`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -161,7 +160,7 @@ ALTER TABLE `cronograma`
 -- AUTO_INCREMENT de la tabla `evento`
 --
 ALTER TABLE `evento`
-  MODIFY `id_evento` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `obra_teatro`
@@ -189,20 +188,19 @@ ALTER TABLE `sala`
 -- Filtros para la tabla `cronograma`
 --
 ALTER TABLE `cronograma`
-  ADD CONSTRAINT `cronograma_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `evento` (`id_evento`),
-  ADD CONSTRAINT `cronograma_ibfk_2` FOREIGN KEY (`id_cronograma`) REFERENCES `sala` (`id_cronograma`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `cronograma_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `evento` (`id`);
 
 --
 -- Filtros para la tabla `obra_teatro`
 --
 ALTER TABLE `obra_teatro`
-  ADD CONSTRAINT `obra_teatro_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `evento` (`id_evento`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `obra_teatro_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `evento` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pelicula`
 --
 ALTER TABLE `pelicula`
-  ADD CONSTRAINT `pelicula_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `evento` (`id_evento`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `pelicula_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `evento` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

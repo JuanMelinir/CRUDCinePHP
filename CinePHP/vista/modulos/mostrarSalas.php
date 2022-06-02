@@ -1,9 +1,4 @@
 <div class="row g-6">
-<!--
-<div class="table__header">Numero</div>
-<div class="table__header">Capacidad</div>
-<div class="tablet__header">Habilitada para teatro</div>
-<div class="tablet__header">Cronograma</div>-->
 <table class="table">
   <thead>
     <tr>
@@ -15,18 +10,21 @@
   </thead>
   <tbody>
 <?php
+//conecto a la base de datos db_cine
 include_once 'includes/conexion1.php';
-
+//creo la consulta para obtener las salas
   $salas="SELECT * FROM sala";
   $resultado=mysqli_query($conexion,$salas);
+  //obtengo las salas
   while($row=mysqli_fetch_assoc($resultado)){?>
    <tr>
+       <!--muestro los datos de las salas -->
       <td class="form-label"><?php echo $row["id"]?></td>
       <td class="form-label"><?php echo $row["capacidad"]?></td>
       <td class="form-label"><?php if($row["teatro"]==0){echo"no";}else{echo "si";}?></td>
       <td class="form-label"><?php echo $row["cronograma"]?></td>
     </tr>
-
+ <!--libero a $resultado1 -->
  <?php }mysqli_free_result($resultado);
 
 ?>
